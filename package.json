@@ -1,7 +1,9 @@
 {
   "name": "shebang-check",
-  "version": "0.0.0",
-  "engines": { "node": "^10.17.0" },
+  "version": "1.0.0",
+  "engines": {
+    "node": "^10.17.0"
+  },
   "description": "Checks if a given file, or the bin files pointed to in package.json have a shebang.",
   "repository": {
     "type": "git",
