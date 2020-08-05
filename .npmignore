@@ -3,3 +3,5 @@ src
 .prettierrc.js
 .vscode
 tsconfig.json
+.nyc_output
+coverage
