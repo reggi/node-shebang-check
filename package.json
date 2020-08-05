@@ -1,6 +1,6 @@
 {
   "name": "shebang-check",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "engines": {
     "node": ">=11.14.0"
   },
