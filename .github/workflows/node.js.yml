@@ -31,7 +31,7 @@ jobs:
     - run: npm ci
     - run: npm run test:coverage-ci
   publish-npm:
-    needs: test
+    needs: [test, coverage]
     runs-on: ubuntu-latest
     steps:  
     - name: Checkout
