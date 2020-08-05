@@ -2,8 +2,18 @@
 
 > TLDR; Checks if a given file, or the bin files pointed to in package.json have a shebang.
 
-Checks if a file has a shebang at the top, or if provided a package.json
+# Usage
 
-  * checks that all bin provided have shebangs, throws an error if they do not
-  * have it, useful for testing within CI for npm packages and reliably asserting
-  * that a executable file indeed has a shebang at the top.
+```bash
+npm install shebang-check -g 
+```
+
+You can also use `npx` like like this:
+
+```bash
+$ npx shebang-check ./src/shebang_check_cli.ts 
+file shebang_check_cli.ts has shebang
+```
+
+* If you point it at a non-json file will check for shebang at top of tile.
+* If you point at `.json` will check for `bin` property and check those files.
