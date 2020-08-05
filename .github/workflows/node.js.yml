@@ -6,9 +6,6 @@ name: Node.js CI
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -29,6 +26,12 @@ jobs:
     steps:  
     - name: Checkout
       uses: actions/checkout@v2
+    - name: Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - run: npm ci
+    - run: npm build
     - name: Semantic Release
       uses: cycjimmy/semantic-release-action@v2
       with:
@@ -38,12 +41,6 @@ jobs:
           @semantic-release/github
           @semantic-release/npm
           @semantic-release/git
-          
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-    - name: Commit Version
-      run: |
-        git config --global user.name 'reggi'
-        git config --global user.email 'thomas@reggi.com'
-        git push
