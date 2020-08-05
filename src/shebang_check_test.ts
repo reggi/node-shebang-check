@@ -81,6 +81,14 @@ describe('ShebangCheck', () => {
       expect(readFileStub.calledOnce).to.equal(false);
       sinon.restore();
     });
+    it('should test json where bin is object has non-string', async () => {
+      const JSON_FILE = JSON.stringify({bin: {example: true}});
+      readFileStub = sinon.stub(fs.promises, 'readFile').resolves(JSON_FILE);
+      const result = await ShebangCheck.binFiles('./example.json');
+      expect(result).to.deep.equal([]);
+      expect(readFileStub.calledOnce).to.equal(true);
+      sinon.restore();
+    });
   });
   context('.uniqueBinFiles()', () => {
     it('should test json where bin is multi-object', async () => {
@@ -195,6 +203,20 @@ describe('ShebangCheck', () => {
       expect(error).to.not.equal(undefined);
       sinon.restore();
     });
+    it('should throw when no files', async () => {
+      const JSON_FILE = JSON.stringify({bin: {foo: true}});
+      readFileStub = sinon.stub(fs.promises, 'readFile');
+      readFileStub.onCall(0).resolves(JSON_FILE);
+      readFileStub.onCall(1).returns('');
+      let error;
+      try {
+        await ShebangCheck.check('./example.json');
+      } catch (e) {
+        error = e;
+      }
+      expect(error).to.not.equal(undefined);
+      sinon.restore();
+    });
     it('should not throw', async () => {
       const JSON_FILE = JSON.stringify({bin: {foo: './foo.js'}});
       readFileStub = sinon.stub(fs.promises, 'readFile');
@@ -230,6 +252,47 @@ describe('ShebangCheck', () => {
       readFileStub = sinon.stub(fs.promises, 'readFile');
       readFileStub.onCall(0).resolves(JSON_FILE);
       readFileStub.onCall(1).resolves('');
+      await ShebangCheck.cli((process as unknown) as NodeJS.Process);
+      expect(process.exit.args).to.deep.equal([[1]]);
+      expect(process.stderr.write.calledOnce).to.equal(true);
+      expect(process.stdout.write.calledOnce).to.equal(false);
+      sinon.restore();
+    });
+    it('should return exit code with 1 [no files]', async () => {
+      const process = {
+        argv: ['skip', 'skip', './example.json'],
+        stdout: {
+          write: sinon.stub(),
+        },
+        stderr: {
+          write: sinon.stub(),
+        },
+        exit: sinon.stub(),
+      };
+      const JSON_FILE = JSON.stringify({bin: {foo: true}});
+      readFileStub = sinon.stub(fs.promises, 'readFile');
+      readFileStub.onCall(0).resolves(JSON_FILE);
+      await ShebangCheck.cli((process as unknown) as NodeJS.Process);
+      expect(process.exit.args).to.deep.equal([[1]]);
+      expect(process.stderr.write.calledOnce).to.equal(true);
+      expect(process.stdout.write.calledOnce).to.equal(false);
+      sinon.restore();
+    });
+    it('should return exit code with 1 [no files x2]', async () => {
+      const process = {
+        argv: ['skip', 'skip', './a.json', './b.json'],
+        stdout: {
+          write: sinon.stub(),
+        },
+        stderr: {
+          write: sinon.stub(),
+        },
+        exit: sinon.stub(),
+      };
+      const JSON_FILE = JSON.stringify({bin: {foo: true}});
+      readFileStub = sinon.stub(fs.promises, 'readFile');
+      readFileStub.onCall(0).resolves(JSON_FILE);
+      readFileStub.onCall(1).resolves(JSON_FILE);
       await ShebangCheck.cli((process as unknown) as NodeJS.Process);
       expect(process.exit.args).to.deep.equal([[1]]);
       expect(process.stderr.write.calledOnce).to.equal(true);

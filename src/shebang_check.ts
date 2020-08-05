@@ -64,11 +64,11 @@ export class ShebangCheck {
     return results;
   }
   static async check(...location: string[]) {
-    (await ShebangCheck.multiFile(...location)).forEach(
-      ({basename, hasShebang}) => {
-        if (!hasShebang) throw new Error(`file ${basename} is missing shebang`);
-      }
-    );
+    const files = await ShebangCheck.multiFile(...location);
+    if (!files.length) throw new Error(`file ${location} is missing shebang`);
+    files.forEach(({basename, hasShebang}) => {
+      if (!hasShebang) throw new Error(`file ${basename} is missing shebang`);
+    });
   }
   static async cli(process: NodeJS.Process) {
     const locations = process.argv.slice(2);
@@ -78,6 +78,13 @@ export class ShebangCheck {
     }
     let code = 0;
     const files = await ShebangCheck.multiFile(...locations);
+    if (!files.length) {
+      const noun = locations.length === 1 ? ['file', 'is'] : ['files', 'are'];
+      process.stderr.write(
+        `${noun[0]} ${locations.join(', ')} ${noun[1]} missing shebang\n`
+      );
+      code = 1;
+    }
     files.forEach(({basename, hasShebang}) => {
       if (hasShebang) {
         process.stdout.write(`file ${basename} has shebang\n`);
