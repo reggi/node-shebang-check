@@ -9,8 +9,8 @@
   },
   "license": "ISC",
   "author": "Thomas Reggi",
-  "main": "./build/shebang-check.js",
-  "bin": "./build/shebang-check_cli.js",
+  "main": "./build/shebang_check.js",
+  "bin": "./build/shebang_check_cli.js",
   "scripts": {
     "build": "rm -rf ./build/ && tsc",
     "coverage:open": "open ./coverage/index.html",
