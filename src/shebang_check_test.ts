@@ -136,7 +136,7 @@ describe('ShebangCheck', () => {
       readFileStub.onCall(0).resolves('');
       readFileStub.onCall(1).returns('');
       const result = await ShebangCheck.multiFile('./foo.js', './bar.js');
-      expect(result).to.deep.equal([
+      expect(result).to.have.members([
         {
           location: './foo.js',
           content: '',
@@ -163,7 +163,7 @@ describe('ShebangCheck', () => {
         .onCall(2)
         .returns('#!/usr/bin/env node\n console.log("foo")');
       const result = await ShebangCheck.multiFile('./foo.json', './bar.js');
-      expect(result).to.deep.equal([
+      expect(result).to.have.members([
         {
           location: './bar.js',
           content: '#!/usr/bin/env node\n console.log("bar")',
