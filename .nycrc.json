@@ -1,4 +1,4 @@
-  {
+{
   "all": true,
   "check-coverage": true,
   "branches": 100,
@@ -9,6 +9,7 @@
     "src/**/*.ts"
   ],
   "exclude": [
-    "src/**/*_cli.ts"
+    "src/**/*_cli.ts",
+    "src/**/snapshots/*.js"
   ]
 }

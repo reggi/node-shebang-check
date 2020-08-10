@@ -1,19 +1,20 @@
-# `shebang-check`
+# node-shebang-check
 
-> TLDR; Checks if a given file, or the bin files pointed to in package.json have a shebang.
+[![semantic release](https://github.com/reggi/node-shebang-check/workflows/semantic%20release/badge.svg)](https://github.com/reggi/node-shebang-check/actions?query=workflow%3A%22semantic+release%22) [![coverage](https://github.com/reggi/node-shebang-check/workflows/coverage/badge.svg)](https://reggi.github.io/node-shebang-check/) [![npm](https://badge.fury.io/js/shebang-check.svg)](https://www.npmjs.com/package/shebang-check)
 
-# Usage
+Checks if a given file, or the bin files pointed to in package.json have a shebang.
 
-```bash
-npm install shebang-check -g 
+## Install
+
+```
+npm install shebang-check -g
+shebang-check
 ```
 
-You can also use `npx` like like this:
+## Use directly via `npx`
 
-```bash
-$ npx shebang-check ./src/shebang_check_cli.ts 
-file shebang_check_cli.ts has shebang
+```
+npx shebang-check
 ```
 
-* If you point it at a non-json file will check for shebang at top of tile.
-* If you point at `.json` will check for `bin` property and check those files.
+<!-- anything below this line will be safe from template removal -->
