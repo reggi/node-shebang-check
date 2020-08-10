@@ -45,5 +45,6 @@
   },
   "engines": {
     "node": ">=11.14.0"
-  }
+  },
+  "usage": "CMD <file>"
 }

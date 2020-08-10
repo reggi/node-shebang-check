@@ -8,13 +8,13 @@ Checks if a given file, or the bin files pointed to in package.json have a sheba
 
 ```
 npm install shebang-check -g
-shebang-check
+shebang-check <file>
 ```
 
 ## Use directly via `npx`
 
 ```
-npx shebang-check
+npx shebang-check <file>
 ```
 
 <!-- anything below this line will be safe from template removal -->
