@@ -37,6 +37,8 @@
     "gts": "^2.0.2",
     "mocha": "^8.1.1",
     "nyc": "^15.1.0",
+    "require-check": "^1.0.2",
+    "shebang-check": "^1.0.5",
     "sinon": "^9.0.2",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.6"
