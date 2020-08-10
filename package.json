@@ -33,6 +33,7 @@
     "@types/sinon": "^9.0.4",
     "chai": "^4.2.0",
     "chai-jest-snapshot": "^2.0.0",
+    "eslint": "^6.0.0",
     "gts": "^2.0.2",
     "mocha": "^8.1.1",
     "nyc": "^15.1.0",
